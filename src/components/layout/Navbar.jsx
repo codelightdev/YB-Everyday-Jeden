@@ -283,4 +283,40 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
       <style>{`
         @media (max-width: 960px) {
           .navbar-grid {
-            grid-template-columns
+            grid-template-columns: auto 1fr auto !important;
+          }
+          .desktop-nav-links {
+            display: none !important;
+          }
+          .desktop-logo-wrap {
+            display: none !important;
+          }
+          .mobile-nav-toggle {
+            display: flex !important;
+          }
+          .mobile-logo-wrap {
+            display: flex !important;
+          }
+        }
+        .nav-link {
+          transition: color 0.3s ease;
+        }
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0%;
+          height: 1px;
+          background-color: var(--color-gold);
+          transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+          width: 100%;
+        }
+      `}</style>
+    </header>
+  );
+};
+
+export default Navbar;
