@@ -196,7 +196,7 @@ export const CartDrawer = () => {
                 Your bag is empty
               </p>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1.75rem', maxWidth: '280px' }}>
-                Discover our signature jewelry, editorial eyewear, and everyday objects of expression.
+                Discover our signature jewelry, L'Optique sculpted frames, and Jeden objects of radiance.
               </p>
               <Button
                 variant="primary"

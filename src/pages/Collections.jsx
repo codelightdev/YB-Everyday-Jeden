@@ -9,7 +9,7 @@ export const Collections = () => {
     <>
       <SeoMeta
         title="Collections & Lookbooks | YB EVERYDAY / JEDEN"
-        description="Explore the five editorial campaign series of YB EVERYDAY / JEDEN: The Everyday, Radiance, After Dark, Essentials, and Vision."
+        description="Explore the five editorial campaign series of YB EVERYDAY / JEDEN: Jeden, Radiance, After Dark, Essentials, and Atelier Optique."
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 2.5rem)', paddingBottom: '7rem' }}>

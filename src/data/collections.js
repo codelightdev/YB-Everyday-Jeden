@@ -5,12 +5,13 @@
 
 export const COLLECTIONS = [
   {
-    id: "everyday",
-    slug: "everyday",
-    title: "THE EVERYDAY",
+    id: "jeden",
+    slug: "jeden",
+    alias: "everyday",
+    title: "JEDEN",
     subtitle: "Permanent Objects of Intentional Ease",
     tagline: "Pieces designed to become part of your everyday language.",
-    concept: "The Everyday collection examines the intimate relationship between daily repetition and profound personal resonance. These are objects designed not for special occasions, but to elevate every waking hour into an occasion.",
+    concept: "The Jeden collection examines the intimate relationship between daily repetition and profound personal resonance. JEDEN translates to 'the singular one'—objects designed not for isolated ceremonies, but to elevate every waking hour into an occasion.",
     heroImage: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1600&auto=format&fit=crop",
     editorialImage: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1200&auto=format&fit=crop",
     year: "Series 01",
@@ -58,10 +59,10 @@ export const COLLECTIONS = [
     title: "VISION",
     subtitle: "Architectural Frames for Perspective",
     tagline: "Frames for the way you see the world.",
-    concept: "Eyewear conceived as wearable sculpture. Japanese cellulose acetates and featherweight beta-titanium wireframes crafted to frame the eyes with intellectual clarity and uncompromising silhouette.",
+    concept: "Optique conceived as wearable sculpture. Japanese cellulose acetates and featherweight beta-titanium wireframes crafted to frame the eyes with intellectual clarity and uncompromising silhouette.",
     heroImage: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1600&auto=format&fit=crop",
     editorialImage: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1200&auto=format&fit=crop",
-    year: "Atelier Eyewear",
+    year: "Atelier Optique",
     productIds: ["yb-sun-003", "yb-opt-005", "yb-opt-011"]
   }
 ];

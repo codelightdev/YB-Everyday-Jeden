@@ -34,7 +34,7 @@ export const About = () => {
     <div ref={containerRef}>
       <SeoMeta
         title="The YB Philosophy | YB EVERYDAY / JEDEN"
-        description="The story of YB EVERYDAY / JEDEN. An editorial exploration of contemporary luxury, everyday objects of expression, fine jewelry, and architectural eyewear."
+        description="The story of YB EVERYDAY / JEDEN. An editorial exploration of contemporary luxury, everyday objects of expression, fine jewelry, and L'Optique frames."
       />
 
       {/* Hero Section */}
@@ -104,7 +104,7 @@ export const About = () => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', fontSize: '1rem', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
               <p>
-                YB EVERYDAY / JEDEN is a contemporary luxury house that operates at the vital crossroads of fine jewelry, editorial eyewear, horology, and everyday lifestyle objects. We were founded on a simple yet radical conviction: that true luxury should be lived in, not stored away.
+                YB EVERYDAY / JEDEN is a contemporary luxury house that operates at the vital crossroads of fine jewelry, L'Optique sculpted frames, horology, and everyday lifestyle objects. We were founded on a simple yet radical conviction: that true luxury should be lived in, not stored away.
               </p>
               <p>
                 Conceived between the coastal cosmopolitan dynamism of Lagos and international European ateliers, our perspective is polyphonic. We reject the generic tropes of traditional jewelry stores—the velvet cases, the excessive pricing markups, the fear of wearing precious metals while going about one’s day. Instead, we craft objects with architectural discipline and tactile substance.
@@ -149,7 +149,7 @@ export const About = () => {
       <section style={{ height: '70vh', minHeight: '440px', overflow: 'hidden', position: 'relative' }}>
         <img
           src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1800&auto=format&fit=crop"
-          alt="YB Eyewear Studio"
+          alt="YB Optique Atelier Studio"
           className="parallax-editorial-img"
           style={{ width: '100%', height: '120%', objectFit: 'cover', marginTop: '-10%' }}
         />

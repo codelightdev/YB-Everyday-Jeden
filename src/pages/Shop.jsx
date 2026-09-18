@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSearchParams, useParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, ArrowUpDown, Check } from 'lucide-react';
 import { PRODUCTS, CATEGORIES, formatCurrency } from '../data/products';
@@ -14,8 +14,7 @@ export const Shop = () => {
   const currentCategory = useMemo(() => {
     if (categoryParam) {
       if (categoryParam === 'jewelry') return 'Jewelry';
-      if (categoryParam === 'eyewear') return 'Sunglasses';
-      if (categoryParam === 'optical') return 'Optical';
+      if (categoryParam === 'optique' || categoryParam === 'eyewear' || categoryParam === 'optical' || categoryParam === 'solaire') return 'Optique';
       if (categoryParam === 'accessories') return 'Accessories';
     }
     return searchParams.get('category') || 'All';
@@ -25,13 +24,17 @@ export const Shop = () => {
   const [sortOption, setSortOption] = useState(searchParams.get('sort') || 'featured');
   const [filterNewOnly, setFilterNewOnly] = useState(searchParams.get('new') === 'true');
   const [filterBestseller, setFilterBestseller] = useState(searchParams.get('bestseller') === 'true');
-  const [maxPrice, setMaxPrice] = useState(300000);
+  const [filterJedenOnly, setFilterJedenOnly] = useState(searchParams.get('collection') === 'jeden');
 
   // Filtered and Sorted products
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter(p => {
       // Category match
       if (currentCategory !== 'All' && p.category !== currentCategory) {
+        return false;
+      }
+      // Jeden collection filter
+      if (filterJedenOnly && p.collection !== 'jeden') {
         return false;
       }
       // New arrivals filter
@@ -42,10 +45,6 @@ export const Shop = () => {
       if (filterBestseller && !p.bestseller) {
         return false;
       }
-      // Price limit
-      if (p.price > maxPrice) {
-        return false;
-      }
       return true;
     }).sort((a, b) => {
       if (sortOption === 'price-asc') return a.price - b.price;
@@ -53,17 +52,15 @@ export const Shop = () => {
       if (sortOption === 'newest') return (b.newArrival ? 1 : 0) - (a.newArrival ? 1 : 0);
       return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
     });
-  }, [currentCategory, filterNewOnly, filterBestseller, maxPrice, sortOption]);
+  }, [currentCategory, filterJedenOnly, filterNewOnly, filterBestseller, sortOption]);
 
   const handleCategoryChange = (catId) => {
     if (catId === 'all') {
       navigate('/shop');
     } else if (catId === 'Jewelry') {
       navigate('/shop/jewelry');
-    } else if (catId === 'Sunglasses') {
-      navigate('/shop/eyewear');
-    } else if (catId === 'Optical') {
-      navigate('/shop/optical');
+    } else if (catId === 'Optique') {
+      navigate('/shop/optique');
     } else if (catId === 'Accessories') {
       navigate('/shop/accessories');
     } else {
@@ -75,7 +72,7 @@ export const Shop = () => {
     <>
       <SeoMeta
         title={`Shop ${currentCategory !== 'All' ? currentCategory : 'All Objects'} | YB EVERYDAY / JEDEN`}
-        description="Browse the complete contemporary luxury catalog of fine jewelry, bespoke sunglasses, beta-titanium frames, and everyday essentials."
+        description="Browse the complete contemporary luxury catalog of fine jewelry, L'Optique sculpted frames, and everyday essentials."
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 2.5rem)', paddingBottom: '6rem' }}>
@@ -109,16 +106,19 @@ export const Shop = () => {
             {/* Category Filter Pills */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
               <button
-                onClick={() => handleCategoryChange('all')}
+                onClick={() => {
+                  setFilterJedenOnly(false);
+                  handleCategoryChange('all');
+                }}
                 style={{
                   padding: '0.5rem 1.1rem',
                   fontSize: '0.72rem',
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
-                  fontWeight: currentCategory === 'All' ? 600 : 400,
-                  backgroundColor: currentCategory === 'All' ? 'var(--color-obsidian)' : 'transparent',
-                  color: currentCategory === 'All' ? 'var(--color-warm-white)' : 'var(--color-obsidian)',
-                  border: currentCategory === 'All' ? '1px solid var(--color-obsidian)' : '1px solid var(--border-medium)',
+                  fontWeight: currentCategory === 'All' && !filterJedenOnly ? 600 : 400,
+                  backgroundColor: currentCategory === 'All' && !filterJedenOnly ? 'var(--color-obsidian)' : 'transparent',
+                  color: currentCategory === 'All' && !filterJedenOnly ? 'var(--color-warm-white)' : 'var(--color-obsidian)',
+                  border: currentCategory === 'All' && !filterJedenOnly ? '1px solid var(--color-obsidian)' : '1px solid var(--border-medium)',
                   transition: 'all 0.2s ease'
                 }}
               >
@@ -128,7 +128,10 @@ export const Shop = () => {
               {CATEGORIES.filter(c => c.id !== 'all').map(cat => (
                 <button
                   key={cat.id}
-                  onClick={() => handleCategoryChange(cat.id)}
+                  onClick={() => {
+                    setFilterJedenOnly(false);
+                    handleCategoryChange(cat.id);
+                  }}
                   style={{
                     padding: '0.5rem 1.1rem',
                     fontSize: '0.72rem',
@@ -146,6 +149,23 @@ export const Shop = () => {
               ))}
 
               <button
+                onClick={() => setFilterJedenOnly(prev => !prev)}
+                style={{
+                  padding: '0.5rem 1.1rem',
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontWeight: filterJedenOnly ? 600 : 400,
+                  backgroundColor: filterJedenOnly ? 'var(--color-obsidian)' : 'transparent',
+                  color: filterJedenOnly ? 'var(--color-warm-white)' : 'var(--color-obsidian)',
+                  border: filterJedenOnly ? '1px solid var(--color-obsidian)' : '1px solid var(--border-gold)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                Jeden Series
+              </button>
+
+              <button
                 onClick={() => setFilterNewOnly(prev => !prev)}
                 style={{
                   padding: '0.5rem 1.1rem',
@@ -159,7 +179,7 @@ export const Shop = () => {
                   transition: 'all 0.2s ease'
                 }}
               >
-                New Arrivals
+                New Releases
               </button>
 
               <button
@@ -200,7 +220,7 @@ export const Shop = () => {
                   cursor: 'pointer'
                 }}
               >
-                <option value="featured">Featured Collection</option>
+                <option value="featured">Featured Curations</option>
                 <option value="newest">Newest Releases</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
@@ -211,11 +231,12 @@ export const Shop = () => {
           {/* Results Count Banner */}
           <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
             <span>Showing {filteredProducts.length} curated objects</span>
-            {(filterNewOnly || filterBestseller || currentCategory !== 'All') && (
+            {(filterNewOnly || filterBestseller || filterJedenOnly || currentCategory !== 'All') && (
               <button
                 onClick={() => {
                   setFilterNewOnly(false);
                   setFilterBestseller(false);
+                  setFilterJedenOnly(false);
                   handleCategoryChange('all');
                 }}
                 style={{

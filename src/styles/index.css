@@ -95,6 +95,7 @@ ul, ol {
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
+  transition: letter-spacing 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .editorial-title-lg {
@@ -103,6 +104,7 @@ ul, ol {
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -0.01em;
+  transition: letter-spacing 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .editorial-title-md {
@@ -160,7 +162,7 @@ ul, ol {
   padding-bottom: clamp(4rem, 8vw, 9rem);
 }
 
-/* Luxury Divider */
+/* Luxury Dividers */
 .editorial-rule {
   border: none;
   height: 1px;
@@ -175,7 +177,7 @@ ul, ol {
   width: 100%;
 }
 
-/* Image Wrappers */
+/* Image Wrappers with Radiance Shimmer Effect */
 .image-reveal-wrap {
   position: relative;
   overflow: hidden;
@@ -186,11 +188,57 @@ ul, ol {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
 .image-reveal-wrap:hover img {
-  transform: scale(1.04);
+  transform: scale(1.05);
+}
+
+/* Unexpected Metallic Light Shimmer Reflection */
+.image-reveal-wrap::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 0%,
+    rgba(184, 155, 94, 0.18) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.image-reveal-wrap:hover::after {
+  opacity: 1;
+  animation: radianceSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes radianceSweep {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+
+/* Floating Architectural Coordinates Watermark */
+.floating-coordinate {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(184, 155, 94, 0.4);
+  user-select: none;
+  pointer-events: none;
+  display: inline-block;
 }
 
 /* Responsive Grid Systems */
@@ -220,7 +268,7 @@ ul, ol {
   }
 }
 
-/* Badge */
+/* Badges */
 .luxury-badge {
   display: inline-flex;
   align-items: center;
@@ -235,7 +283,7 @@ ul, ol {
 }
 
 .luxury-badge.gold {
-  background-color: rgba(184, 155, 94, 0.12);
+  background-color: rgba(184, 155, 94, 0.15);
   color: var(--color-gold);
   border-color: var(--color-gold);
 }
@@ -244,6 +292,65 @@ ul, ol {
 :focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
+}
+
+/* Unexpected Subtle Luxury Animation: Metallic Radiance Shimmer Sweep */
+.radiance-shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.radiance-shimmer-sweep::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(184, 155, 94, 0) 35%,
+    rgba(212, 175, 55, 0.2) 50%,
+    rgba(255, 255, 255, 0.35) 55%,
+    rgba(212, 175, 55, 0.2) 60%,
+    transparent 100%
+  );
+  transform: skewX(-22deg);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.radiance-shimmer-sweep:hover::before {
+  opacity: 1;
+  animation: radianceSweep 1.25s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes radianceSweep {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* Subtle Floating Coordinates */
+.floating-coordinate {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  color: var(--color-gold);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.floating-coordinate:hover {
+  transform: translateY(-2px);
+  color: var(--color-warm-white);
+  text-shadow: 0 0 12px rgba(184, 155, 94, 0.5);
 }
 
 /* Reduced Motion */

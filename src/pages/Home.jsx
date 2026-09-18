@@ -1,29 +1,28 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Shield, Compass, ChevronRight } from 'lucide-react';
+import { ArrowRight, Sparkles, Shield, Compass, ChevronRight, Eye } from 'lucide-react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PRODUCTS, formatCurrency } from '../data/products';
 import { COLLECTIONS } from '../data/collections';
 import { JOURNAL_ARTICLES } from '../data/journal';
 import ProductGrid from '../components/shop/ProductGrid';
-import ProductCard from '../components/shop/ProductCard';
+import OptiqueSwiper from '../components/shop/OptiqueSwiper';
 import SectionHeading from '../components/common/SectionHeading';
 import Button from '../components/common/Button';
 import SeoMeta from '../components/common/SeoMeta';
+import { initCinematicScroll } from '../animations/pageAnimations';
 
 export const Home = () => {
+  const containerRef = useRef(null);
   const heroRef = useRef(null);
   const heroHeadlineRef = useRef(null);
   const heroSubtextRef = useRef(null);
   const heroCtaRef = useRef(null);
   const heroBgRef = useRef(null);
-  const horizontalScrollRef = useRef(null);
-  const horizontalTrackRef = useRef(null);
 
-  const featuredProducts = PRODUCTS.filter(p => p.featured).slice(0, 4);
+  const jedenProducts = PRODUCTS.filter(p => p.collection === 'jeden' || p.featured).slice(0, 4);
   const jewelryProducts = PRODUCTS.filter(p => p.category === 'Jewelry').slice(0, 4);
-  const eyewearProducts = PRODUCTS.filter(p => p.category === 'Sunglasses' || p.category === 'Optical').slice(0, 5);
+  const optiqueProducts = PRODUCTS.filter(p => p.category === 'Optique');
 
   useEffect(() => {
     // Hero Entrance GSAP Timeline
@@ -54,38 +53,20 @@ export const Home = () => {
       1.1
     );
 
-    // Horizontal Scroll for Eyewear
-    let ctx = gsap.context(() => {
-      if (horizontalTrackRef.current && horizontalScrollRef.current) {
-        const totalWidth = horizontalTrackRef.current.scrollWidth - window.innerWidth;
-        if (totalWidth > 0 && window.innerWidth > 768) {
-          gsap.to(horizontalTrackRef.current, {
-            x: () => -totalWidth - 80,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: horizontalScrollRef.current,
-              start: 'top top',
-              end: () => `+=${totalWidth + 400}`,
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true
-            }
-          });
-        }
-      }
-    });
+    // Initialize cinematic scroll animations across the homepage
+    const cleanupScroll = initCinematicScroll(containerRef.current);
 
     return () => {
       tl.kill();
-      ctx.revert();
+      if (cleanupScroll) cleanupScroll();
     };
   }, []);
 
   return (
-    <>
+    <div ref={containerRef}>
       <SeoMeta
-        title="YB EVERYDAY / JEDEN — RADIANCE | Luxury Jewelry & Eyewear"
-        description="Contemporary luxury fashion house specializing in fine jewelry, sculpted sunglasses, titanium optical frames, and everyday objects of expression."
+        title="YB EVERYDAY / JEDEN — RADIANCE | Luxury Jewelry & L'Optique"
+        description="Contemporary luxury fashion house specializing in fine jewelry, L'Optique sculpted frames, and everyday objects of expression."
       />
 
       {/* 1. CINEMATIC HERO */}
@@ -176,7 +157,7 @@ export const Home = () => {
             ref={heroSubtextRef}
             className="editorial-subheading"
             style={{
-              color: 'rgba(250, 249, 246, 0.85)',
+              color: 'rgba(250, 249, 246, 0.88)',
               maxWidth: '620px',
               fontSize: 'clamp(1.2rem, 2.2vw, 1.6rem)',
               marginBottom: '2.5rem',
@@ -232,27 +213,29 @@ export const Home = () => {
             color: 'rgba(250, 249, 246, 0.5)'
           }}
         >
-          <span>Fine Jewelry & Eyewear</span>
-          <span style={{ display: 'none', md: 'inline' }}>Scroll to Explore ↓</span>
+          <span>Fine Jewelry & L'Optique</span>
+          <span className="floating-coordinate" data-parallax-depth="15">
+            06°27'N · 03°23'E
+          </span>
           <span>Lagos · London · Paris</span>
         </div>
       </section>
 
-      {/* 2. THE EVERYDAY COLLECTION SHOWCASE */}
-      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      {/* 2. THE JEDEN COLLECTION SHOWCASE */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)', position: 'relative' }}>
         <div className="container-luxury">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3.5rem', flexWrap: 'wrap', gap: '1.5rem' }}>
             <div>
-              <span className="eyebrow">The Everyday Collection</span>
-              <h2 className="editorial-title-lg" style={{ marginTop: '0.5rem', textTransform: 'uppercase' }}>
-                Permanent Objects of Ease
+              <span className="eyebrow">Series 01 · Permanent</span>
+              <h2 className="editorial-title-lg" style={{ marginTop: '0.5rem', textTransform: 'uppercase' }} data-reveal-text>
+                The Jeden Collection
               </h2>
-              <p className="editorial-subheading" style={{ marginTop: '0.5rem' }}>
+              <p className="editorial-subheading" style={{ marginTop: '0.5rem' }} data-reveal-text>
                 “Pieces designed to become part of your everyday language.”
               </p>
             </div>
             <Link
-              to="/collections/everyday"
+              to="/collections/jeden"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -265,14 +248,14 @@ export const Home = () => {
                 borderBottom: '1px solid var(--color-gold)',
                 paddingBottom: '0.25rem'
               }}
-              data-cursor="LOOKBOOK"
+              data-cursor="JEDEN"
             >
-              <span>View The Lookbook</span>
+              <span>Explore The Jeden Lookbook</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
-          <ProductGrid products={featuredProducts} columns={4} />
+          <ProductGrid products={jedenProducts} columns={4} />
         </div>
       </section>
 
@@ -281,7 +264,8 @@ export const Home = () => {
         className="section-padding"
         style={{
           backgroundColor: 'var(--color-obsidian)',
-          color: 'var(--color-warm-white)'
+          color: 'var(--color-warm-white)',
+          position: 'relative'
         }}
       >
         <div className="container-luxury">
@@ -302,6 +286,7 @@ export const Home = () => {
                 position: 'relative'
               }}
               data-cursor="JEWELRY"
+              data-reveal-image
             >
               <img
                 src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1400&auto=format&fit=crop"
@@ -313,7 +298,7 @@ export const Home = () => {
                   position: 'absolute',
                   bottom: '1.5rem',
                   left: '1.5rem',
-                  backgroundColor: 'rgba(10, 10, 10, 0.8)',
+                  backgroundColor: 'rgba(10, 10, 10, 0.85)',
                   backdropFilter: 'blur(8px)',
                   padding: '1rem 1.5rem',
                   borderLeft: '2px solid var(--color-gold)'
@@ -340,6 +325,7 @@ export const Home = () => {
                   textTransform: 'uppercase',
                   margin: '1rem 0 1.5rem'
                 }}
+                data-reveal-text
               >
                 Designed Around the Details That Make You, You
               </h2>
@@ -350,6 +336,7 @@ export const Home = () => {
                   color: 'var(--text-inverse-muted)',
                   marginBottom: '2rem'
                 }}
+                data-reveal-text
               >
                 From the razor-sharp facets of the Radiance Signet to the fluid weight of our Double Helix Chains, every YB jewelry piece is cast to balance anatomical ergonomics with unapologetic architectural poise.
               </p>
@@ -388,7 +375,7 @@ export const Home = () => {
                 size="lg"
                 cursorText="EXPLORE"
               >
-                Explore Jewelry
+                Explore Fine Jewelry
               </Button>
             </div>
           </div>
@@ -400,58 +387,48 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 4. EYEWEAR: SEE DIFFERENTLY SECTION */}
+      {/* 4. L'OPTIQUE: FLUID CINEMATIC SWIPER SHOWCASE */}
       <section
-        ref={horizontalScrollRef}
         className="section-padding"
         style={{
           backgroundColor: 'var(--color-soft-ivory)',
+          position: 'relative',
           overflow: 'hidden'
         }}
       >
-        <div className="container-luxury" style={{ marginBottom: '2.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.5rem' }}>
+        <div className="container-luxury">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+              marginBottom: '3rem',
+              flexWrap: 'wrap',
+              gap: '1.5rem'
+            }}
+          >
             <div>
-              <span className="eyebrow">Eyewear Series</span>
-              <h2 className="editorial-title-lg" style={{ marginTop: '0.5rem', textTransform: 'uppercase' }}>
-                See Differently
+              <span className="eyebrow">L'Optique Series</span>
+              <h2 className="editorial-title-lg" style={{ marginTop: '0.5rem', textTransform: 'uppercase' }} data-reveal-text>
+                Optique — See Differently
               </h2>
-              <p className="editorial-subheading" style={{ marginTop: '0.5rem' }}>
-                “Frames for the way you see the world.”
+              <p className="editorial-subheading" style={{ marginTop: '0.5rem' }} data-reveal-text>
+                “Architectural frames for the way you see the world.”
               </p>
             </div>
+
             <Button
-              to="/shop/eyewear"
+              to="/shop/optique"
               variant="outline"
               size="md"
-              cursorText="EYEWEAR"
+              cursorText="OPTIQUE"
             >
-              Explore Eyewear
+              Explore L'Optique
             </Button>
           </div>
-        </div>
 
-        {/* Horizontal Track of Eyewear Objects */}
-        <div
-          ref={horizontalTrackRef}
-          style={{
-            display: 'flex',
-            gap: '2rem',
-            paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
-            paddingRight: 'clamp(1.5rem, 5vw, 4rem)'
-          }}
-        >
-          {eyewearProducts.map((frame) => (
-            <div
-              key={frame.id}
-              style={{
-                minWidth: 'clamp(280px, 28vw, 380px)',
-                flexShrink: 0
-              }}
-            >
-              <ProductCard product={frame} />
-            </div>
-          ))}
+          {/* Elegant Interactive Swiper / Carousel */}
+          <OptiqueSwiper products={optiqueProducts} />
         </div>
       </section>
 
@@ -492,6 +469,7 @@ export const Home = () => {
               marginBottom: '2rem',
               fontWeight: 300
             }}
+            data-reveal-text
           >
             Radiance is light interacting with identity.
             <br />
@@ -507,6 +485,7 @@ export const Home = () => {
               lineHeight: 1.7,
               marginBottom: '2.5rem'
             }}
+            data-reveal-text
           >
             “Designed to be noticed. Made to be remembered.”
           </p>
@@ -528,7 +507,7 @@ export const Home = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3.5rem', flexWrap: 'wrap', gap: '1.5rem' }}>
             <div>
               <span className="eyebrow">The YB Journal</span>
-              <h2 className="editorial-title-lg" style={{ marginTop: '0.5rem', textTransform: 'uppercase' }}>
+              <h2 className="editorial-title-lg" style={{ marginTop: '0.5rem', textTransform: 'uppercase' }} data-reveal-text>
                 Essays on Form & Style
               </h2>
             </div>
@@ -577,6 +556,7 @@ export const Home = () => {
                     aspectRatio: '16 / 10',
                     backgroundColor: 'var(--color-charcoal)'
                   }}
+                  data-reveal-image
                 >
                   <img
                     src={article.heroImage}
@@ -633,7 +613,7 @@ export const Home = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

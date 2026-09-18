@@ -11,7 +11,7 @@ export const Journal = () => {
     <>
       <SeoMeta
         title="The Journal | YB EVERYDAY / JEDEN"
-        description="Essays on contemporary luxury, jewelry styling, eyewear architecture, and the philosophy of everyday radiance."
+        description="Essays on contemporary luxury, jewelry styling, L'Optique architecture, and the philosophy of everyday radiance."
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 2.5rem)', paddingBottom: '7rem' }}>

@@ -192,6 +192,11 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/collections/jeden" style={{ color: 'var(--color-warm-white)', transition: 'color 0.2s' }}>
+                  The Jeden Series
+                </Link>
+              </li>
+              <li>
                 <Link to="/collections" style={{ color: 'var(--color-warm-white)', transition: 'color 0.2s' }}>
                   Lookbook Collections
                 </Link>
@@ -234,13 +239,13 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/shop/eyewear" style={{ color: 'var(--color-warm-white)', transition: 'color 0.2s' }}>
-                  Sculpted Sunglasses
+                <Link to="/shop/optique" style={{ color: 'var(--color-warm-white)', transition: 'color 0.2s' }}>
+                  L'Optique & Solaire
                 </Link>
               </li>
               <li>
                 <Link to="/shop/optical" style={{ color: 'var(--color-warm-white)', transition: 'color 0.2s' }}>
-                  Beta-Titanium Optical
+                  Montures Optique
                 </Link>
               </li>
               <li>

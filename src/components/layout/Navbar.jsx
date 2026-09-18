@@ -80,7 +80,7 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 'clamp(1.2rem, 2.2vw, 2.6rem)'
+              gap: 'clamp(1rem, 1.8vw, 2.2rem)'
             }}
           >
             <NavLink
@@ -90,16 +90,22 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
               Shop
             </NavLink>
             <NavLink
+              to="/collections/jeden"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              Jeden
+            </NavLink>
+            <NavLink
+              to="/shop/optique"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              L'Optique
+            </NavLink>
+            <NavLink
               to="/collections"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             >
               Collections
-            </NavLink>
-            <NavLink
-              to="/about"
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-            >
-              About
             </NavLink>
             <NavLink
               to="/journal"
@@ -108,10 +114,10 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
               Journal
             </NavLink>
             <NavLink
-              to="/contact"
+              to="/about"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             >
-              Contact
+              About
             </NavLink>
           </nav>
 
@@ -262,6 +268,10 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           width: 100%;
         }
 
+        .mobile-nav-toggle {
+          display: none;
+        }
+
         .mobile-logo-wrap {
           display: none;
         }
@@ -277,8 +287,8 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
             height: var(--header-height-mobile) !important;
           }
           .navbar-inner {
-            grid-template-columns: 48px 1fr auto !important;
-            gap: 0.5rem !important;
+            grid-template-columns: 1fr auto 1fr !important;
+            gap: 0.25rem !important;
           }
           .desktop-nav-links {
             display: none !important;
@@ -288,6 +298,7 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           }
           .mobile-nav-toggle {
             display: inline-flex !important;
+            justify-content: flex-start;
           }
           .mobile-logo-wrap {
             display: flex !important;
@@ -308,13 +319,29 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           }
         }
 
-        /* Extra Compact Mobile Screens (< 440px) */
-        @media (max-width: 440px) {
+        /* Mobile Tablet (< 768px): Hide account button to preserve spacing */
+        @media (max-width: 768px) {
           .nav-account-btn {
             display: none !important;
           }
-          .navbar-inner {
-            gap: 0.25rem !important;
+        }
+
+        /* Compact Mobile Screens (< 540px) */
+        @media (max-width: 540px) {
+          .mobile-logo-wrap .yb-brand-logo > div > div {
+            display: none !important;
+          }
+          .mobile-logo-wrap .yb-brand-logo span {
+            font-size: 0.8rem !important;
+            letter-spacing: 0.16em !important;
+          }
+        }
+
+        /* Ultra Compact (< 360px) */
+        @media (max-width: 360px) {
+          .nav-icon-btn {
+            width: 38px !important;
+            height: 38px !important;
           }
         }
       `}</style>

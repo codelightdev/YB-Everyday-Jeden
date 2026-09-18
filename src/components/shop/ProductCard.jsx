@@ -28,7 +28,7 @@ export const ProductCard = ({ product, onQuickView }) => {
     >
       {/* Image Container with Badges and Overlay Actions */}
       <div
-        className="image-reveal-wrap"
+        className="image-reveal-wrap radiance-shimmer-sweep"
         style={{
           aspectRatio: '4 / 5',
           position: 'relative',

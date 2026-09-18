@@ -50,8 +50,8 @@ export const animateHero = ({
   if (imageRef) {
     tl.fromTo(
       imageRef,
-      { scale: 1.12, filter: 'brightness(0.7)' },
-      { scale: 1, filter: 'brightness(0.95)', duration: 1.8, ease: 'power2.out' },
+      { scale: 1.15, filter: 'brightness(0.65)' },
+      { scale: 1, filter: 'brightness(0.92)', duration: 2.2, ease: 'power2.out' },
       0
     );
   }
@@ -59,17 +59,17 @@ export const animateHero = ({
   if (headlineRef) {
     tl.fromTo(
       headlineRef,
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2 },
-      0.4
+      { y: 50, opacity: 0, letterSpacing: '0.01em' },
+      { y: 0, opacity: 1, letterSpacing: '0.08em', duration: 1.5, ease: 'power2.out' },
+      0.3
     );
   }
 
   if (subtextRef) {
     tl.fromTo(
       subtextRef,
-      { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.0 },
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.1 },
       0.7
     );
   }
@@ -87,22 +87,23 @@ export const animateHero = ({
 };
 
 /**
- * Reveal image via clip-path upon scroll
+ * Cinematic ScrollTrigger animations across any page
  */
-export const initImageReveals = (scopeRef) => {
+export const initCinematicScroll = (scopeRef) => {
   if (!scopeRef || prefersReducedMotion()) return;
 
   const ctx = gsap.context(() => {
-    const images = scopeRef.querySelectorAll('[data-reveal-image]');
-    images.forEach(img => {
+    // 1. Image Mask Slit Reveals
+    const revealImages = scopeRef.querySelectorAll('[data-reveal-image]');
+    revealImages.forEach(img => {
       gsap.fromTo(
         img,
-        { clipPath: 'inset(15% 0% 15% 0%)', opacity: 0.6, scale: 1.06 },
+        { clipPath: 'polygon(0 15%, 100% 15%, 100% 85%, 0 85%)', opacity: 0.5, scale: 1.08 },
         {
-          clipPath: 'inset(0% 0% 0% 0%)',
+          clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)',
           opacity: 1,
           scale: 1,
-          duration: 1.4,
+          duration: 1.5,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: img,
@@ -112,31 +113,57 @@ export const initImageReveals = (scopeRef) => {
         }
       );
     });
-  }, scopeRef);
 
-  return () => ctx.revert();
-};
-
-/**
- * Text element stagger reveal
- */
-export const initTextReveals = (scopeRef) => {
-  if (!scopeRef || prefersReducedMotion()) return;
-
-  const ctx = gsap.context(() => {
-    const textEls = scopeRef.querySelectorAll('[data-reveal-text]');
-    textEls.forEach(el => {
+    // 2. Headings Kerning & Slide Reveal
+    const headings = scopeRef.querySelectorAll('[data-reveal-text]');
+    headings.forEach(heading => {
       gsap.fromTo(
-        el,
-        { y: 35, opacity: 0 },
+        heading,
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1.1,
+          duration: 1.2,
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: el,
+            trigger: heading,
             start: 'top 88%',
+            once: true
+          }
+        }
+      );
+    });
+
+    // 3. Subtle Parallax Float
+    const parallaxItems = scopeRef.querySelectorAll('[data-parallax-depth]');
+    parallaxItems.forEach(item => {
+      const speed = parseFloat(item.getAttribute('data-parallax-depth') || '20');
+      gsap.to(item, {
+        y: -speed,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    });
+
+    // 4. Radiance Shimmer sweep on section dividers
+    const rules = scopeRef.querySelectorAll('.editorial-rule, .editorial-rule-dark');
+    rules.forEach(rule => {
+      gsap.fromTo(
+        rule,
+        { scaleX: 0, opacity: 0, transformOrigin: 'left' },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 1.4,
+          ease: 'power3.inOut',
+          scrollTrigger: {
+            trigger: rule,
+            start: 'top 90%',
             once: true
           }
         }

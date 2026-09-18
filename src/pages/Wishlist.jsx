@@ -19,8 +19,8 @@ export const Wishlist = () => {
   return (
     <>
       <SeoMeta
-        title={`Saved Wishlist (${wishlist.length}) | YB EVERYDAY / JEDEN`}
-        description="Review your curated wishlist of YB fine jewelry, eyewear, and everyday objects."
+        title="Curated Wishlist | YB EVERYDAY / JEDEN"
+        description="Review your curated wishlist of YB fine jewelry, L'Optique frames, and Jeden objects."
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 3rem)', paddingBottom: '7rem' }}>

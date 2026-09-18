@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 export const SeoMeta = ({
   title = "YB EVERYDAY / JEDEN — RADIANCE",
-  description = "Contemporary luxury fashion house specializing in fine jewelry, editorial eyewear, optical frames, and everyday luxury objects.",
+  description = "Contemporary luxury fashion house specializing in fine jewelry, L'Optique sculpted frames, and Jeden objects of radiance.",
   image = "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1200&auto=format&fit=crop",
   canonical
 }) => {

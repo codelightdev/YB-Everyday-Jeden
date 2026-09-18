@@ -102,6 +102,8 @@ export const MobileNav = ({ isOpen, onClose }) => {
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {[
             { label: 'Shop All Objects', to: '/shop' },
+            { label: 'The Jeden Series', to: '/collections/jeden' },
+            { label: "L'Optique & Solaire", to: '/shop/optique' },
             { label: 'Collections', to: '/collections' },
             { label: 'The Philosophy', to: '/about' },
             { label: 'Editorial Journal', to: '/journal' },
@@ -115,7 +117,7 @@ export const MobileNav = ({ isOpen, onClose }) => {
                 onClick={onClose}
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.8rem, 6vw, 2.8rem)',
+                  fontSize: 'clamp(1.5rem, 5vw, 2.4rem)',
                   fontWeight: 300,
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
@@ -156,10 +158,10 @@ export const MobileNav = ({ isOpen, onClose }) => {
                 color: 'var(--color-warm-white)'
               }}
             >
-              Jewelry
+              Fine Jewelry
             </NavLink>
             <NavLink
-              to="/shop/eyewear"
+              to="/shop/optique"
               onClick={onClose}
               style={{
                 fontSize: '0.75rem',
@@ -170,7 +172,21 @@ export const MobileNav = ({ isOpen, onClose }) => {
                 color: 'var(--color-warm-white)'
               }}
             >
-              Sunglasses
+              L'Optique
+            </NavLink>
+            <NavLink
+              to="/shop/solaire"
+              onClick={onClose}
+              style={{
+                fontSize: '0.75rem',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                padding: '0.4rem 0.9rem',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                color: 'var(--color-warm-white)'
+              }}
+            >
+              Solaire
             </NavLink>
             <NavLink
               to="/shop/optical"
@@ -184,7 +200,7 @@ export const MobileNav = ({ isOpen, onClose }) => {
                 color: 'var(--color-warm-white)'
               }}
             >
-              Optical Frames
+              Montures Optique
             </NavLink>
             <NavLink
               to="/shop/accessories"

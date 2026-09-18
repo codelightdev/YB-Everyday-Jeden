@@ -28,7 +28,7 @@ export const Contact = () => {
     <>
       <SeoMeta
         title="Contact & Private Salons | YB EVERYDAY / JEDEN"
-        description="Connect with the YB Concierge for private appointments, custom jewelry commissions, bespoke eyewear fitting, and worldwide client services."
+        description="Connect with the YB Concierge for private appointments, custom jewelry commissions, bespoke Optique fitting, and worldwide client services."
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 3rem)', paddingBottom: '7rem' }}>
