@@ -34,6 +34,8 @@ export const CollectionDetails = () => {
         title={`${collection.title} — Campaign | YB EVERYDAY / JEDEN`}
         description={collection.concept}
         image={collection.heroImage}
+        imageAlt={`${collection.title} Campaign - YB EVERYDAY / JEDEN`}
+        canonical={`/collections/${collection.slug}`}
       />
 
       {/* Campaign Full-Bleed Hero */}

@@ -81,7 +81,7 @@ export const Cart = () => {
   if (orderSuccess) {
     return (
       <>
-        <SeoMeta title="Order Confirmed | YB EVERYDAY / JEDEN" />
+        <SeoMeta title="Order Confirmed | YB EVERYDAY / JEDEN" noindex={true} />
         <div style={{ paddingTop: 'calc(var(--header-height) + 4rem)', paddingBottom: '8rem' }}>
           <div className="container-luxury" style={{ maxWidth: '640px', textAlign: 'center' }}>
             <div
@@ -158,7 +158,8 @@ export const Cart = () => {
     <>
       <SeoMeta
         title={`Shopping Bag (${totalItemsCount}) | YB EVERYDAY / JEDEN`}
-        description="Review your selected fine jewelry, editorial sunglasses, and lifestyle objects."
+        description="Review your selected fine jewelry, L'Optique frames, and Jeden objects of radiance."
+        noindex={true}
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 3rem)', paddingBottom: '7rem' }}>

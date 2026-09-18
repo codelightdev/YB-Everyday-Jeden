@@ -154,8 +154,8 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           >
             <Heart className="nav-icon-svg" size={22} strokeWidth={1.9} />
             {wishlistCount > 0 && (
-              <span className="nav-icon-badge">
-                {wishlistCount}
+              <span className="nav-icon-badge" aria-hidden="true">
+                {wishlistCount > 99 ? '99+' : wishlistCount}
               </span>
             )}
           </NavLink>
@@ -169,8 +169,8 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           >
             <ShoppingBag className="nav-icon-svg" size={22} strokeWidth={1.9} />
             {totalItemsCount > 0 && (
-              <span className="nav-icon-badge gold">
-                {totalItemsCount}
+              <span className="nav-icon-badge gold" aria-hidden="true">
+                {totalItemsCount > 99 ? '99+' : totalItemsCount}
               </span>
             )}
           </button>
@@ -212,12 +212,12 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
 
         .nav-icon-badge {
           position: absolute;
-          top: 4px;
-          right: 4px;
+          top: 3px;
+          right: 3px;
           min-width: 18px;
           height: 18px;
           padding: 0 4px;
-          border-radius: 10px;
+          border-radius: 9999px;
           background-color: var(--color-gold);
           color: var(--color-obsidian);
           font-family: var(--font-sans);
@@ -227,9 +227,24 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           align-items: center;
           justify-content: center;
           line-height: 1;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
           border: 1.5px solid var(--color-obsidian);
           pointer-events: none;
+          z-index: 4;
+          transform-origin: center;
+          animation: badgeScaleIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        @keyframes badgeScaleIn {
+          0% {
+            transform: scale(0.3);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
         }
 
         .navbar-scrolled .nav-icon-badge {
@@ -317,6 +332,15 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           .nav-actions-wrap {
             gap: 0.15rem !important;
           }
+          .nav-icon-badge {
+            top: 2px !important;
+            right: 2px !important;
+            min-width: 16px !important;
+            height: 16px !important;
+            font-size: 0.58rem !important;
+            padding: 0 3px !important;
+            border-width: 1.5px !important;
+          }
         }
 
         /* Mobile Tablet (< 768px): Hide account button to preserve spacing */
@@ -335,6 +359,15 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
             font-size: 0.8rem !important;
             letter-spacing: 0.16em !important;
           }
+          .nav-icon-badge {
+            top: 1px !important;
+            right: 1px !important;
+            min-width: 15px !important;
+            height: 15px !important;
+            font-size: 0.55rem !important;
+            padding: 0 2.5px !important;
+            border-width: 1px !important;
+          }
         }
 
         /* Ultra Compact (< 360px) */
@@ -342,6 +375,15 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           .nav-icon-btn {
             width: 38px !important;
             height: 38px !important;
+          }
+          .nav-icon-badge {
+            top: 0px !important;
+            right: 0px !important;
+            min-width: 14px !important;
+            height: 14px !important;
+            font-size: 0.52rem !important;
+            padding: 0 2px !important;
+            border-width: 1px !important;
           }
         }
       `}</style>

@@ -12,6 +12,7 @@ export const Journal = () => {
       <SeoMeta
         title="The Journal | YB EVERYDAY / JEDEN"
         description="Essays on contemporary luxury, jewelry styling, L'Optique architecture, and the philosophy of everyday radiance."
+        canonical="/journal"
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 2.5rem)', paddingBottom: '7rem' }}>

@@ -73,6 +73,7 @@ export const Shop = () => {
       <SeoMeta
         title={`Shop ${currentCategory !== 'All' ? currentCategory : 'All Objects'} | YB EVERYDAY / JEDEN`}
         description="Browse the complete contemporary luxury catalog of fine jewelry, L'Optique sculpted frames, and everyday essentials."
+        canonical={categoryParam ? `/shop/${categoryParam}` : '/shop'}
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 2.5rem)', paddingBottom: '6rem' }}>

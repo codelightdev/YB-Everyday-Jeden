@@ -21,6 +21,7 @@ export const Wishlist = () => {
       <SeoMeta
         title="Curated Wishlist | YB EVERYDAY / JEDEN"
         description="Review your curated wishlist of YB fine jewelry, L'Optique frames, and Jeden objects."
+        noindex={true}
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 3rem)', paddingBottom: '7rem' }}>

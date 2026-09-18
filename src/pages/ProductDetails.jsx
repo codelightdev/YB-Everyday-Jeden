@@ -63,6 +63,10 @@ export const ProductDetails = () => {
         title={`${product.name} | YB EVERYDAY / JEDEN`}
         description={product.description}
         image={product.images[0]}
+        imageAlt={`${product.name} - YB EVERYDAY / JEDEN`}
+        type="product"
+        product={product}
+        canonical={`/product/${product.id}`}
       />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 2rem)', paddingBottom: '6rem' }}>

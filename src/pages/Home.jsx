@@ -66,7 +66,9 @@ export const Home = () => {
     <div ref={containerRef}>
       <SeoMeta
         title="YB EVERYDAY / JEDEN — RADIANCE | Luxury Jewelry & L'Optique"
-        description="Contemporary luxury fashion house specializing in fine jewelry, L'Optique sculpted frames, and everyday objects of expression."
+        description="Contemporary luxury fashion house specializing in fine jewelry, L'Optique sculpted frames, and Jeden objects of radiance. Designed between Lagos, London, and Paris."
+        canonical="/"
+        keywords="luxury fashion, African luxury, fine jewelry, L'Optique eyewear, solid gold, Jeden collection, Radiance"
       />
 
       {/* 1. CINEMATIC HERO */}

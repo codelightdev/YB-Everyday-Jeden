@@ -31,6 +31,10 @@ export const JournalArticle = () => {
         title={`${article.title} | YB Journal`}
         description={article.excerpt}
         image={article.heroImage}
+        imageAlt={`${article.title} - YB Journal`}
+        type="article"
+        article={article}
+        canonical={`/journal/${article.slug}`}
       />
 
       <article style={{ paddingTop: 'calc(var(--header-height) + 2rem)', paddingBottom: '7rem' }}>

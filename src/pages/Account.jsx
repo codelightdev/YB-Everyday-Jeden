@@ -28,7 +28,7 @@ export const Account = () => {
   if (!isLoggedIn) {
     return (
       <>
-        <SeoMeta title="Client Portal | YB EVERYDAY / JEDEN" />
+        <SeoMeta title="Client Portal | YB EVERYDAY / JEDEN" noindex={true} />
         <div style={{ paddingTop: 'calc(var(--header-height) + 4rem)', paddingBottom: '8rem' }}>
           <div className="container-luxury" style={{ maxWidth: '520px' }}>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -143,7 +143,7 @@ export const Account = () => {
 
   return (
     <>
-      <SeoMeta title="Client Portal | YB EVERYDAY / JEDEN" />
+      <SeoMeta title="Client Portal | YB EVERYDAY / JEDEN" noindex={true} />
 
       <div style={{ paddingTop: 'calc(var(--header-height) + 3rem)', paddingBottom: '8rem' }}>
         <div className="container-luxury">

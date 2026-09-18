@@ -35,6 +35,7 @@ export const About = () => {
       <SeoMeta
         title="The YB Philosophy | YB EVERYDAY / JEDEN"
         description="The story of YB EVERYDAY / JEDEN. An editorial exploration of contemporary luxury, everyday objects of expression, fine jewelry, and L'Optique frames."
+        canonical="/about"
       />
 
       {/* Hero Section */}
