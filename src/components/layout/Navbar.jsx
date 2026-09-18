@@ -15,7 +15,7 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY > 30) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -33,6 +33,7 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
 
   return (
     <header
+      className={`luxury-navbar ${isTransparent ? 'navbar-transparent' : 'navbar-scrolled'}`}
       style={{
         position: 'fixed',
         top: 0,
@@ -40,39 +41,31 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
         width: '100%',
         height: 'var(--header-height)',
         zIndex: 'var(--z-header)',
-        transition: 'background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease',
-        backgroundColor: isTransparent ? 'transparent' : 'rgba(250, 249, 246, 0.94)',
-        backdropFilter: isTransparent ? 'none' : 'blur(12px)',
-        borderBottom: isTransparent ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid var(--border-subtle)',
+        transition: 'background-color 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease',
+        backgroundColor: isTransparent ? 'transparent' : 'rgba(250, 249, 246, 0.96)',
+        backdropFilter: isTransparent ? 'none' : 'blur(16px)',
+        borderBottom: isTransparent ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid var(--border-subtle)',
         color: isTransparent ? 'var(--color-warm-white)' : 'var(--color-obsidian)'
       }}
     >
       <div
-        className="container-luxury navbar-grid"
+        className="container-luxury navbar-inner"
         style={{
           height: '100%',
           display: 'grid',
           gridTemplateColumns: 'auto 1fr auto',
           alignItems: 'center',
-          gap: '1.5rem'
+          gap: '1rem'
         }}
       >
-        {/* Left: Desktop Logo & Mobile Menu Toggle */}
+        {/* Left Column: Desktop Logo & Mobile Menu Toggle */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <button
             onClick={onToggleMobileNav}
             aria-label={isMobileNavOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
-            className="mobile-nav-toggle"
-            style={{
-              display: 'none',
-              padding: '0.4rem',
-              color: 'inherit',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
-            }}
+            className="mobile-nav-toggle nav-icon-btn"
           >
-            {isMobileNavOpen ? <X size={22} /> : <Menu size={22} />}
+            {isMobileNavOpen ? <X size={26} strokeWidth={2} /> : <Menu size={26} strokeWidth={2} />}
           </button>
 
           <div className="desktop-logo-wrap">
@@ -80,7 +73,7 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           </div>
         </div>
 
-        {/* Center: Desktop Nav Links & Mobile Centered Logo */}
+        {/* Center Column: Desktop Navigation Links & Mobile Centered Logo */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <nav
             className="desktop-nav-links"
@@ -93,186 +86,84 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
             <NavLink
               to="/shop"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.74rem',
-                fontWeight: 500,
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                position: 'relative',
-                padding: '0.5rem 0'
-              }}
             >
               Shop
             </NavLink>
             <NavLink
               to="/collections"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.74rem',
-                fontWeight: 500,
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                position: 'relative',
-                padding: '0.5rem 0'
-              }}
             >
               Collections
             </NavLink>
             <NavLink
               to="/about"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.74rem',
-                fontWeight: 500,
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                position: 'relative',
-                padding: '0.5rem 0'
-              }}
             >
               About
             </NavLink>
             <NavLink
               to="/journal"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.74rem',
-                fontWeight: 500,
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                position: 'relative',
-                padding: '0.5rem 0'
-              }}
             >
               Journal
             </NavLink>
             <NavLink
               to="/contact"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.74rem',
-                fontWeight: 500,
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                position: 'relative',
-                padding: '0.5rem 0'
-              }}
             >
               Contact
             </NavLink>
           </nav>
 
-          <div className="mobile-logo-wrap" style={{ display: 'none' }}>
+          <div className="mobile-logo-wrap">
             <YBLogo theme={theme} mode="full" size="sm" />
           </div>
         </div>
 
-        {/* Right: Actions (Search, Account, Wishlist, Cart) */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '1.25rem' }}>
+        {/* Right Column: Interactive Action Icons */}
+        <div className="nav-actions-wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          {/* Search */}
           <button
             onClick={onOpenSearch}
             aria-label="Search Catalog"
-            style={{
-              padding: '0.4rem',
-              color: 'inherit',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'color 0.2s ease',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
-            }}
+            className="nav-icon-btn"
           >
-            <Search size={18} strokeWidth={1.6} />
+            <Search className="nav-icon-svg" size={22} strokeWidth={1.9} />
           </button>
 
+          {/* Account */}
           <NavLink
             to="/account"
             aria-label="Client Account"
-            style={{
-              padding: '0.4rem',
-              color: 'inherit',
-              display: 'flex',
-              alignItems: 'center'
-            }}
+            className="nav-icon-btn nav-account-btn"
           >
-            <User size={18} strokeWidth={1.6} />
+            <User className="nav-icon-svg" size={22} strokeWidth={1.9} />
           </NavLink>
 
+          {/* Wishlist */}
           <NavLink
             to="/wishlist"
             aria-label={`Wishlist (${wishlistCount} items)`}
-            style={{
-              padding: '0.4rem',
-              color: 'inherit',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative'
-            }}
+            className="nav-icon-btn nav-wishlist-btn"
           >
-            <Heart size={18} strokeWidth={1.6} />
+            <Heart className="nav-icon-svg" size={22} strokeWidth={1.9} />
             {wishlistCount > 0 && (
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-2px',
-                  right: '-3px',
-                  backgroundColor: 'var(--color-gold)',
-                  color: 'var(--color-obsidian)',
-                  fontSize: '0.55rem',
-                  fontWeight: 700,
-                  width: '15px',
-                  height: '15px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
+              <span className="nav-icon-badge">
                 {wishlistCount}
               </span>
             )}
           </NavLink>
 
+          {/* Shopping Bag */}
           <button
             onClick={openCart}
             aria-label={`Shopping Bag (${totalItemsCount} items)`}
-            style={{
-              padding: '0.4rem',
-              color: 'inherit',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
-            }}
+            className="nav-icon-btn nav-cart-btn"
             data-cursor="BAG"
           >
-            <ShoppingBag size={18} strokeWidth={1.6} />
+            <ShoppingBag className="nav-icon-svg" size={22} strokeWidth={1.9} />
             {totalItemsCount > 0 && (
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-2px',
-                  right: '-3px',
-                  backgroundColor: isTransparent ? 'var(--color-gold)' : 'var(--color-obsidian)',
-                  color: isTransparent ? 'var(--color-obsidian)' : 'var(--color-warm-white)',
-                  fontSize: '0.55rem',
-                  fontWeight: 700,
-                  width: '15px',
-                  height: '15px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
+              <span className="nav-icon-badge gold">
                 {totalItemsCount}
               </span>
             )}
@@ -281,27 +172,81 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
       </div>
 
       <style>{`
-        @media (max-width: 960px) {
-          .navbar-grid {
-            grid-template-columns: auto 1fr auto !important;
-          }
-          .desktop-nav-links {
-            display: none !important;
-          }
-          .desktop-logo-wrap {
-            display: none !important;
-          }
-          .mobile-nav-toggle {
-            display: flex !important;
-          }
-          .mobile-logo-wrap {
-            display: flex !important;
-          }
+        /* Icon Buttons: Accessible tap targets and clear contrast */
+        .nav-icon-btn {
+          position: relative;
+          display: inline-flex;
+          alignItems: center;
+          justifyContent: center;
+          width: 44px;
+          height: 44px;
+          color: inherit;
+          background: none;
+          border: none;
+          cursor: pointer;
+          border-radius: 50%;
+          transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+          -webkit-tap-highlight-color: transparent;
         }
-        .nav-link {
+
+        .nav-icon-btn:hover {
+          background-color: rgba(184, 155, 94, 0.12);
+        }
+
+        .nav-icon-btn:active {
+          transform: scale(0.92);
+        }
+
+        /* SVG Drop Shadow for pristine visibility over any photography */
+        .navbar-transparent .nav-icon-svg,
+        .navbar-transparent .mobile-nav-toggle svg,
+        .navbar-transparent .yb-brand-logo {
+          filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.65));
+        }
+
+        .nav-icon-badge {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+          min-width: 18px;
+          height: 18px;
+          padding: 0 4px;
+          border-radius: 10px;
+          background-color: var(--color-gold);
+          color: var(--color-obsidian);
+          font-family: var(--font-sans);
+          font-size: 0.65rem;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          border: 1.5px solid var(--color-obsidian);
+          pointer-events: none;
+        }
+
+        .navbar-scrolled .nav-icon-badge {
+          border-color: var(--color-warm-white);
+        }
+
+        .nav-icon-badge.gold {
+          background-color: var(--color-gold);
+          color: var(--color-obsidian);
+        }
+
+        .desktop-nav-links .nav-link {
+          font-family: var(--font-sans);
+          font-size: 0.74rem;
+          font-weight: 500;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          position: relative;
+          padding: 0.5rem 0;
           transition: color 0.3s ease;
         }
-        .nav-link::after {
+
+        .desktop-nav-links .nav-link::after {
           content: '';
           position: absolute;
           bottom: 0;
@@ -311,8 +256,66 @@ export const Navbar = ({ onOpenSearch, onToggleMobileNav, isMobileNavOpen }) => 
           background-color: var(--color-gold);
           transition: width 0.3s ease;
         }
-        .nav-link:hover::after, .nav-link.active::after {
+
+        .desktop-nav-links .nav-link:hover::after,
+        .desktop-nav-links .nav-link.active::after {
           width: 100%;
+        }
+
+        .mobile-logo-wrap {
+          display: none;
+        }
+
+        /* Desktop spacing */
+        .nav-actions-wrap {
+          gap: 0.5rem;
+        }
+
+        /* Mobile Breakpoint (< 960px) */
+        @media (max-width: 960px) {
+          .luxury-navbar {
+            height: var(--header-height-mobile) !important;
+          }
+          .navbar-inner {
+            grid-template-columns: 48px 1fr auto !important;
+            gap: 0.5rem !important;
+          }
+          .desktop-nav-links {
+            display: none !important;
+          }
+          .desktop-logo-wrap {
+            display: none !important;
+          }
+          .mobile-nav-toggle {
+            display: inline-flex !important;
+          }
+          .mobile-logo-wrap {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+          }
+          .nav-icon-btn {
+            width: 44px;
+            height: 44px;
+          }
+          .nav-icon-btn svg {
+            width: 23px !important;
+            height: 23px !important;
+            stroke-width: 2.1 !important;
+          }
+          .nav-actions-wrap {
+            gap: 0.15rem !important;
+          }
+        }
+
+        /* Extra Compact Mobile Screens (< 440px) */
+        @media (max-width: 440px) {
+          .nav-account-btn {
+            display: none !important;
+          }
+          .navbar-inner {
+            gap: 0.25rem !important;
+          }
         }
       `}</style>
     </header>
